@@ -5,6 +5,8 @@ chrome.runtime.onMessage.addListener(
       	sendResponse(getKiteFunds());
       } else if (window.location.host.includes("coin.zerodha.com")) {
       	sendResponse(getCoinFunds());
+      } else if (window.location.host.includes("console.zerodha.com")) {
+      	sendResponse(getConsoleFunds());
       }
   }
 );
@@ -51,6 +53,37 @@ function getCoinFunds() {
 		fundData[fundName] = { invested: sanitizeAmount(invested), current: sanitizeAmount(current) }
 	}
 	return fundData
+}
+
+function getConsoleFunds() {
+	holdings = document.getElementsByClassName("holdings")[0]
+	rows = holdings.getElementsByTagName("TR")
+	fundData = {}
+	for (i = 0; i < rows.length; i++) {
+		if (rows[i].tagName !== "TR") {
+			continue;
+		}
+
+		if (rows[i].children[0].tagName !== "TD") {
+			continue;
+		}
+
+		if (rows[i].children[0].length === 0) {
+			continue;
+		}
+
+		fundName = rows[i].children[0].children[0]?.innerText;
+		if (!fundName) {
+			continue;
+		}
+
+		qty = sanitizeAmount(rows[i].children[1].innerText.trim());
+		avg = sanitizeAmount(rows[i].children[2].innerText.trim());
+		invested = qty * avg;
+		current = sanitizeAmount(rows[i].children[5].innerText.trim());
+		fundData[fundName] = { invested: invested, current: current }
+	}
+	return fundData;
 }
 
 // Sanitize the amount value

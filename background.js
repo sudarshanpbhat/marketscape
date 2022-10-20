@@ -10,6 +10,9 @@ chrome.runtime.onInstalled.addListener(function() {
 	      }),
         new chrome.declarativeContent.PageStateMatcher({
           pageUrl: {hostEquals: 'kite.zerodha.com'},
+        }), 
+        new chrome.declarativeContent.PageStateMatcher({
+          pageUrl: {hostEquals: 'console.zerodha.com'}
         })
       ],
       actions: [

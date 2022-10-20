@@ -11,7 +11,8 @@
   	{
   		"matches": [
         "https://coin.zerodha.com/*", 
-        "https://kite.zerodha.com/*"
+        "https://kite.zerodha.com/*", 
+        "https://console.zerodha.com/portfolio/holdings"
       ],
   		"js": ["contentScript.js"]
   	}
