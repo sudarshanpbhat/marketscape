@@ -4,20 +4,19 @@
   "description": "Analysis for your mutual funds and stocks",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "background": {
-  	"scripts": ["background.js"],
-  	"persistent": false
+  	"service_worker": "background.js",
+  	"type": "module"
   },
   "content_scripts": [
   	{
   		"matches": [
-        "https://coin.zerodha.com/*", 
-        "https://kite.zerodha.com/*", 
+        "https://console.zerodha.com/portfolio/holdings/family",
         "https://console.zerodha.com/portfolio/holdings"
       ],
   		"js": ["contentScript.js"]
   	}
   ],
-  "page_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/marketscape16.png",
@@ -32,5 +31,5 @@
     "48": "images/marketscape48.png",
     "128": "images/marketscape128.png"
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
